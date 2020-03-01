@@ -38,17 +38,19 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 			try {
 				staff.setImage(s3Service.findByKeyName(staff.getImageName()).toByteArray());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
-		return staffRepository.findAll();
+		return staffs;
 	}
 
 	@Override
 	public Staff findById(String id) {
 		try {
-		return staffRepository.findById(id).get();
+			Staff staff=new Staff();
+			staff=staffRepository.findById(id).get();
+			staff.setImage(s3Service.findByKeyName(staff.getImageName()).toByteArray());
+			return staff;
 		}catch(Exception e ) {
 			return null;
 		}

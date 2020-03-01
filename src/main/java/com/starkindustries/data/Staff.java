@@ -77,6 +77,8 @@ public class Staff  implements Serializable {
 		this.image = image;
 	}
 
+	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
