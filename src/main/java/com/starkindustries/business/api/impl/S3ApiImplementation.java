@@ -25,14 +25,14 @@ public class S3ApiImplementation implements S3Api{
 	public ResponseEntity<?> uploadMultipartFile(@RequestBody MultipartFile file) {
 		try {
 			s3Service.uploadFile(file.getOriginalFilename(), file);
-			return ResponseEntity.ok().body("Operation Successful!");
+			return ResponseEntity.accepted().body("Operation Successful!");
 		} catch (IOException e) {
 			return ResponseEntity.badRequest().body("Failed to upload files!");
 		}
 	}
 
 	@Override
-	public ResponseEntity<?> downloadFile(@PathVariable  String keyname) {
+	public ResponseEntity<?> downloadFile(@PathVariable("keyname")  String keyname) {
 		try {		
 		ByteArrayOutputStream downloadInputStream = s3Service.downloadFile(keyname);
 		return ResponseEntity.ok()

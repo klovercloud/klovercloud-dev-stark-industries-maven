@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-@RequestMapping("s3s")
+
 public interface S3Api {
 	
-	@PostMapping("/")
+	@PostMapping("s3s")
 	ResponseEntity<?> uploadMultipartFile(MultipartFile file);
 	
-	@GetMapping("/{keyname}")
+	@GetMapping("s3s/{keyname}")
 	public ResponseEntity<?> downloadFile( String keyname);
 		
 	

@@ -32,8 +32,8 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 	@Override
 	public Staff findById(String id) {
 		try {
-			return staffRepository.getOne(id);
-		} catch (Exception e) {
+		return staffRepository.findById(id).get();
+		}catch(Exception e ) {
 			return null;
 		}
 	}
