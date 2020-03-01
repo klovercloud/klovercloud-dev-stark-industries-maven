@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 
@@ -18,7 +19,16 @@ public class Staff  implements Serializable {
 
 	@NotNull
 	private String name;
+	
+	@NotNull
+	private String position;
 
+	@NotNull
+	private String imageName;
+	
+	@Transient
+	private byte[] image;
+	
 	public String getId() {
 		return id;
 	}
@@ -41,6 +51,30 @@ public class Staff  implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public static long getSerialversionuid() {

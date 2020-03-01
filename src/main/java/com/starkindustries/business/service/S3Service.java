@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface S3Service {
 
-	public ByteArrayOutputStream downloadFile(String keyName) throws IOException;
+	public ByteArrayOutputStream findByKeyName(String keyName) throws IOException;
 	public void uploadFile(String keyName, MultipartFile file) throws IOException;
 	
 }

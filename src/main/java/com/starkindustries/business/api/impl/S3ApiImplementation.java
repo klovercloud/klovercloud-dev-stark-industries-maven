@@ -32,18 +32,15 @@ public class S3ApiImplementation implements S3Api{
 	}
 
 	@Override
-	public ResponseEntity<?> downloadFile(@PathVariable("keyname")  String keyname) {
+	public ResponseEntity<byte[]> downloadFile(@PathVariable("keyname")  String keyname) {
 		try {		
-		ByteArrayOutputStream downloadInputStream = s3Service.downloadFile(keyname);
+		ByteArrayOutputStream downloadInputStream = s3Service.findByKeyName(keyname);
 		return ResponseEntity.ok()
 					.contentType(Util.contentType(keyname))
 					.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + keyname + "\"")
 					.body(downloadInputStream.toByteArray());
 		}catch (Exception ioe) {
-			return ResponseEntity.badRequest()
-					.contentType(Util.contentType(keyname))
-					.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + keyname + "\"")
-					.body(ioe);
+			return null;
 		}
 		
 	}

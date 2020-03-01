@@ -13,7 +13,7 @@ public interface S3Api {
 	ResponseEntity<?> uploadMultipartFile(MultipartFile file);
 	
 	@GetMapping("s3s/{keyname}")
-	public ResponseEntity<?> downloadFile( String keyname);
+	public ResponseEntity<byte[]> downloadFile( String keyname);
 		
 	
 

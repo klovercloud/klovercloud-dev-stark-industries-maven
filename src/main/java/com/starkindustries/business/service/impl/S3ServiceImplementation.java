@@ -30,7 +30,7 @@ private Logger logger = LoggerFactory.getLogger(S3ServiceImplementation.class);
 	private String bucketName;
 
 	@Override
-	public ByteArrayOutputStream downloadFile(String keyName) throws IOException {
+	public ByteArrayOutputStream findByKeyName(String keyName) throws IOException {
 		try {
             S3Object s3object = s3client.getObject(new GetObjectRequest(bucketName, keyName));
             
