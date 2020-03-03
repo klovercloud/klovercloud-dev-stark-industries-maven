@@ -20,34 +20,25 @@ import static com.amazonaws.retry.PredefinedRetryPolicies.DEFAULT_MAX_ERROR_RETR
 @Configuration
 public class Ceph {
 
-    @Value("${ceph.client.url}")
-    private String cephClientServerEndpoint;
+    @Value("${object.storage.endpoint}")
+    private String objectStorageEndpoint;
 
-    @Value("${ceph.client.access}")
-    private String cephClientAccessKey;
+    @Value("${object.storage.user.access.key}")
+    private String objectStorageUserAccessKey;
 
-    @Value("${ceph.client.secret}")
-    private String cephClientSecretKey;
-
-//    @Value("${ceph.admin.url}")
-//    private String  cephAdminEndpoint;
-//
-//    @Value("${ceph.admin.access}")
-//    private String cephAdminAccessKey;
-//
-//    @Value("${ceph.admin.secret}")
-//    private String cephAdminSecretKey;
+    @Value("${object.storage.user.secret.key}")
+    private String objectStorageUserSecretKey;
     
    
 	@Bean
 	public AmazonS3 s3client() {
-        AWSCredentials credentials = new BasicAWSCredentials(cephClientAccessKey, cephClientSecretKey);
+        AWSCredentials credentials = new BasicAWSCredentials(objectStorageUserAccessKey, objectStorageUserSecretKey);
         ClientConfiguration clientConfig = new ClientConfiguration();
         clientConfig.setProtocol(Protocol.HTTP);
         clientConfig.setMaxErrorRetry(DEFAULT_MAX_ERROR_RETRY);
         clientConfig.setRetryPolicy(new RetryPolicy(PredefinedRetryPolicies.DEFAULT_RETRY_CONDITION,
                 DEFAULT_BACKOFF_STRATEGY, DEFAULT_MAX_ERROR_RETRY, false));
-        AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(cephClientServerEndpoint, "");
+        AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(objectStorageEndpoint, "");
         AmazonS3ClientBuilder builder = AmazonS3ClientBuilder.standard();
         builder.setEndpointConfiguration(endpointConfiguration);
         builder.withPathStyleAccessEnabled(true);

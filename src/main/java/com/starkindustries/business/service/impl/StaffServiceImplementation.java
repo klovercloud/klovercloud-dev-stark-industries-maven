@@ -1,5 +1,6 @@
 package com.starkindustries.business.service.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 
 	@Autowired
 	StaffRepository staffRepository;
-	
+
 	@Autowired
 	S3Service s3Service;
 
@@ -32,14 +33,18 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 
 	@Override
 	public List<Staff> findAll() {
-		List<Staff> staffs=new ArrayList<Staff>();
-		staffs=staffRepository.findAll();
-		staffs.stream().forEach(staff->{
+		List<Staff> staffs = new ArrayList<Staff>();
+		staffs = staffRepository.findAll();
+		staffs.stream().forEach(staff -> {
+			byte[] image = null;
 			try {
-				staff.setImage(s3Service.findByKeyName(staff.getImageName()).toByteArray());
-			} catch (IOException e) {
+				ByteArrayOutputStream stream = s3Service.findByKeyName(staff.getImageName());
+				image=stream.toByteArray();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			staff.setImage(image);
 		});
 		return staffs;
 	}
@@ -47,11 +52,11 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 	@Override
 	public Staff findById(String id) {
 		try {
-			Staff staff=new Staff();
-			staff=staffRepository.findById(id).get();
+			Staff staff = new Staff();
+			staff = staffRepository.findById(id).get();
 			staff.setImage(s3Service.findByKeyName(staff.getImageName()).toByteArray());
 			return staff;
-		}catch(Exception e ) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
