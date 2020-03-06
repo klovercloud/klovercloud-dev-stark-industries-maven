@@ -4,14 +4,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-public interface StaffApi<T,I>{
-	@PostMapping("staffs")
+public interface AvengersApi<T,I>{
+	@PostMapping("avengers")
 	ResponseEntity<?> save(T t);
 
-	@GetMapping("staffs")
+	@GetMapping("avengers")
 	ResponseEntity<?> findAll();
 	
-	@GetMapping("staffs/{id}")
+	@GetMapping("avengers/{id}")
 	ResponseEntity<?> findById(I i);
 
 }

@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.starkindustries.business.api.StaffApi;
-import com.starkindustries.business.service.StaffService;
-import com.starkindustries.data.Staff;
+import com.starkindustries.business.api.AvengersApi;
+import com.starkindustries.business.service.AvengersService;
+import com.starkindustries.data.Avengers;
 
 @RestController
 @RequestMapping("api/v1/")
-public class StaffApiImplementation implements StaffApi<Staff, String>{
+public class StaffApiImplementation implements AvengersApi<Avengers, String>{
 	
 	@Autowired
-	StaffService staffService;
+	AvengersService staffService;
 
 	@Override
-	public ResponseEntity<?> save(@RequestBody Staff staff) {
+	public ResponseEntity<?> save(@RequestBody Avengers staff) {
 		try {
 			staffService.save(staff);
 			return ResponseEntity.accepted().body("Operation Successful");
@@ -35,7 +35,7 @@ public class StaffApiImplementation implements StaffApi<Staff, String>{
 
 	@Override
 	public ResponseEntity<?> findById(@PathVariable("id") String id) {
-		Staff staff=(Staff) staffService.findById(id);
+		Avengers staff=(Avengers) staffService.findById(id);
 		if(staff==null) {
 			return ResponseEntity.ok().body("No record found!");
 		}

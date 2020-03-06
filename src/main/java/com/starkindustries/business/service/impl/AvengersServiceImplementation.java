@@ -9,32 +9,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.starkindustries.business.service.S3Service;
-import com.starkindustries.business.service.StaffService;
-import com.starkindustries.data.Staff;
-import com.starkindustries.data.repository.StaffRepository;
+import com.starkindustries.business.service.AvengersService;
+import com.starkindustries.data.Avengers;
+import com.starkindustries.data.repository.AvengersRepository;
 
 @Service
-public class StaffServiceImplementation implements StaffService<Staff, String> {
+public class AvengersServiceImplementation implements AvengersService<Avengers, String> {
 
 	@Autowired
-	StaffRepository staffRepository;
+	AvengersRepository avengersRepository;
 
 	@Autowired
 	S3Service s3Service;
 
 	@Override
-	public void save(Staff staff) throws Exception {
+	public void save(Avengers staff) throws Exception {
 		try {
-			staffRepository.save(staff);
+			avengersRepository.save(staff);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public List<Staff> findAll() {
-		List<Staff> staffs = new ArrayList<Staff>();
-		staffs = staffRepository.findAll();
+	public List<Avengers> findAll() {
+		List<Avengers> staffs = new ArrayList<Avengers>();
+		staffs = avengersRepository.findAll();
 		staffs.stream().forEach(staff -> {
 			byte[] image = null;
 			try {
@@ -50,10 +50,10 @@ public class StaffServiceImplementation implements StaffService<Staff, String> {
 	}
 
 	@Override
-	public Staff findById(String id) {
+	public Avengers findById(String id) {
 		try {
-			Staff staff = new Staff();
-			staff = staffRepository.findById(id).get();
+			Avengers staff = new Avengers();
+			staff = avengersRepository.findById(id).get();
 			staff.setImage(s3Service.findByKeyName(staff.getImageName()).toByteArray());
 			return staff;
 		} catch (Exception e) {

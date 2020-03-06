@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-public class Staff  implements Serializable {
+public class Avengers  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id")
