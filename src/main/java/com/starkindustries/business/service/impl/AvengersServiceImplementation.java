@@ -48,21 +48,22 @@ public class AvengersServiceImplementation implements AvengersService<Avenger, S
 			try {
 				ByteArrayOutputStream stream = s3Service.findByKeyName(avengers.getImageName());
 				image=stream.toByteArray();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			} catch (Exception e) {}
 			
 			Avenger avenger=Avenger.getAvenger(avengers);
 			avenger.setImage(image);
-			
+			try {
 			List<Mission> missions=new ArrayList();
 			avengers.getMissions().forEach(each->{
-				try {
-					missions.add(Mission.getMission(missionService.append("/"+each).toString()));
-				}catch(Exception e) {}
+				
+					try {
+						missions.add(Mission.getMission(missionService.append("/"+each).toString()));
+					} catch (Exception e) {					}
+				
 			});
 			avenger.setMissions(missions);
 			avenger_list.add(avenger);
+			}catch(Exception e) {}
 		});
 		return avenger_list;
 	}
