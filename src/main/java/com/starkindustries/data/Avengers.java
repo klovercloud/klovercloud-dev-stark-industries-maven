@@ -1,11 +1,21 @@
 package com.starkindustries.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
+import org.springframework.lang.Nullable;
+
+import com.starkindustries.business.dto.Avenger;
+import com.starkindustries.business.dto.Mission;
 
 
 @Entity
@@ -23,11 +33,12 @@ public class Avengers  implements Serializable {
 	@NotNull
 	private String position;
 
-	@NotNull
+	@Column(nullable = true)
 	private String imageName;
 	
-	@Transient
-	private byte[] image;
+	@Column(nullable = true)
+	private ArrayList<String> missions;
+	
 	
 	public String getId() {
 		return id;
@@ -68,19 +79,50 @@ public class Avengers  implements Serializable {
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
-	
-	public byte[] getImage() {
-		return image;
+	public ArrayList<String> getMissions() {
+		return missions;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setMissions(ArrayList<String> missions) {
+		this.missions = missions;
 	}
 
-	
-	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public static Avengers getAvengers(Avenger avenger) {
+		Avengers avengers=new Avengers();
+		avengers.id=avenger.getId();
+		avengers.code=avenger.getCode();
+		avengers.name=avenger.getName();
+		avengers.position=avenger.getPosition();
+		try {
+		List<String> missions=new ArrayList<>();
+		avenger.getMissions().stream().forEach(mission->{
+			missions.add(mission.getName());
+		});
+		}catch(Exception e) {}
+		if(avenger.getImageName()!= null && !avenger.getImageName().isEmpty()) {
+			avengers.imageName=avenger.getImageName();
+		}
+
+		return avengers;
+	}
+
+	public Avengers(String id, String code, @NotNull String name, @NotNull String position, @NotNull String imageName,
+			ArrayList<String> missions) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.position = position;
+		this.imageName = imageName;
+		this.missions = missions;
+	}
+
+	public Avengers() {
+		super();
 	}
 	
 	
