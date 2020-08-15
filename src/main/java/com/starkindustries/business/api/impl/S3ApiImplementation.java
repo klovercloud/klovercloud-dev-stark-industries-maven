@@ -10,8 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import com.starkindustries.business.api.S3Api;
-import com.starkindustries.business.common.Util;
 import com.starkindustries.business.service.S3Service;
+import com.starkindustries.config.Util;
+
 import org.springframework.http.HttpHeaders;
 
 @RestController

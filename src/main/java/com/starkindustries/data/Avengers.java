@@ -1,50 +1,50 @@
 package com.starkindustries.data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
-import org.springframework.lang.Nullable;
-
 import com.starkindustries.business.dto.Avenger;
-import com.starkindustries.business.dto.Mission;
+
 
 
 @Entity
-public class Avengers  implements Serializable {
-	private static final long serialVersionUID = 1L;
-	@Id
-	@Column(name = "id")
-	private String id;
+@Table(name = "avengers")
+public class Avengers {
 
+
+private static final long serialVersionUID = -2343243243242432341L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name = "code")
 	private String code;
 
 	@NotNull
+	@Column(name = "name")
 	private String name;
 	
-	@NotNull
+	@Column(name = "position")
 	private String position;
 
-	@Column(nullable = true)
+	@Column(name = "image_name",nullable = true)
 	private String imageName;
 	
-	@Column(nullable = true)
+	@Column(name = "missions",nullable = true)
 	private ArrayList<String> missions;
 	
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -93,16 +93,10 @@ public class Avengers  implements Serializable {
 
 	public static Avengers getAvengers(Avenger avenger) {
 		Avengers avengers=new Avengers();
-		avengers.id=avenger.getId();
 		avengers.code=avenger.getCode();
 		avengers.name=avenger.getName();
 		avengers.position=avenger.getPosition();
-		try {
-		List<String> missions=new ArrayList<>();
-		avenger.getMissions().stream().forEach(mission->{
-			missions.add(mission.getName());
-		});
-		}catch(Exception e) {}
+		avengers.missions=(ArrayList<String>) avenger.getMissions();
 		if(avenger.getImageName()!= null && !avenger.getImageName().isEmpty()) {
 			avengers.imageName=avenger.getImageName();
 		}
@@ -110,10 +104,9 @@ public class Avengers  implements Serializable {
 		return avengers;
 	}
 
-	public Avengers(String id, String code, @NotNull String name, @NotNull String position, @NotNull String imageName,
+	public Avengers( String code, @NotNull String name, @NotNull String position, @NotNull String imageName,
 			ArrayList<String> missions) {
 		super();
-		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.position = position;

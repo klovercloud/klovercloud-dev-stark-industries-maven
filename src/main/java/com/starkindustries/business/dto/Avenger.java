@@ -7,17 +7,18 @@ import java.util.List;
 import com.starkindustries.data.Avengers;
 
 public class Avenger implements Serializable{
-	private String id;
+	private Long id;
 	private String code;
 	private String name;
 	private String position;
 	private byte[] image;
 	private String imageName;
-	private List<Mission> missions;
-	public String getId() {
+	private List<String> missions;
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getCode() {
@@ -50,10 +51,10 @@ public class Avenger implements Serializable{
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
-	public List<Mission> getMissions() {
+	public List<String> getMissions() {
 		return missions;
 	}
-	public void setMissions(List<Mission> missions) {
+	public void setMissions(List<String> missions) {
 		this.missions = missions;
 	}
 	@Override
@@ -129,11 +130,12 @@ public class Avenger implements Serializable{
 		avenger.position=avengers.getPosition();
 		avenger.code=avengers.getCode();
 		avenger.imageName=avengers.getImageName();
+		avenger.missions=avengers.getMissions();
 		return avenger;
 		
 	}
-	public Avenger(String id, String code, String name, String position, byte[] image, String imageName,
-			List<Mission> missions) {
+	public Avenger(Long id, String code, String name, String position, byte[] image, String imageName,
+			List<String> missions) {
 		super();
 		this.id = id;
 		this.code = code;
