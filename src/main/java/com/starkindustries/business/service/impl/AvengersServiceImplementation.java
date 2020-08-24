@@ -38,8 +38,12 @@ public class AvengersServiceImplementation implements AvengersService<Avenger, S
 	public List<Avenger> findAll() {
 		List<Avengers> avengers_list = new ArrayList<Avengers>();
 		List<Avenger> avenger_list = new ArrayList<Avenger>();
+		
+	    System.out.println("Getting records from database");
 		avengers_list = avengersRepository.findAll();
+		System.out.println("Got records from database");
 		avengers_list.stream().forEach(avengers -> {
+			System.out.println("Getting image from s3");
 			byte[] image = null;
 			try {
 				ByteArrayOutputStream stream = s3Service.findByKeyName(avengers.getImageName());
