@@ -24,7 +24,7 @@ public class AvengersServiceImplementation implements AvengersService<Avenger, S
 
 	
 	@Override
-	@CacheEvict(cacheNames = "avengers", allEntries=true)
+	//@CacheEvict(cacheNames = "avengers", allEntries=true)
 	public void save(Avenger avenger) throws Exception {
 		try {
 			avengersRepository.save(Avengers.getAvengers(avenger));
@@ -34,7 +34,7 @@ public class AvengersServiceImplementation implements AvengersService<Avenger, S
 	}
 
 	@Override
-	@Cacheable(cacheNames = "avengers")
+	//@Cacheable(cacheNames = "avengers")
 	public List<Avenger> findAll() {
 		List<Avengers> avengers_list = new ArrayList<Avengers>();
 		List<Avenger> avenger_list = new ArrayList<Avenger>();
