@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  
 @SpringBootApplication
 @EnableCaching
-
 @RestController
 public class Application{
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -19,6 +18,7 @@ public class Application{
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
+	
 	@GetMapping("api/v1/health")
 	public String getHealth() {
 		
